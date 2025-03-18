@@ -9,71 +9,16 @@ namespace EventPlus_.Controller
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    public class TipoEventoController : ControllerBase
+    public class PresencaController : ControllerBase
     {
-        private readonly ITipoEventoRepository _tipoEventoRepository;
+        private readonly IPresencasRepository _presencaRepository;
 
-        public TipoEventoController(ITipoEventoRepository tipoEventoRepository)
+        public PresencaController(IPresencasRepository presencaRepository)
         {
-            _tipoEventoRepository = tipoEventoRepository;
+            _presencaRepository = presencaRepository;
         }
-
-
         /// <summary>
-        /// Endpoint para listar os tipos dos eventos
-        /// </summary>
-        [HttpGet]
-        public IActionResult Get()
-        {
-            try
-            {
-                List<TipoEvento> listaDeTipoEvento = _tipoEventoRepository.Listar();
-                return Ok(listaDeTipoEvento);
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
-        }
-
-        /// <summary>
-        /// Endpoint para cadastrar novos tipos de evento
-        /// </summary>
-        [Authorize]
-        [HttpPost]
-        public IActionResult Post(TipoEvento novoTipoEvento)
-        {
-            try
-            {
-                _tipoEventoRepository.Cadastrar(novoTipoEvento);
-                return Created();
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
-        }
-
-        /// <summary>
-        /// Endpoint para atualizar o tipo do evento
-        /// </summary>
-        [Authorize]
-        [HttpPost("{id}")]
-        public IActionResult Put(Guid id, TipoEvento tipoEvento)
-        {
-            try
-            {
-                _tipoEventoRepository.Atualizar(id, tipoEvento);
-                return NoContent();
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
-        }
-
-        /// <summary>
-        /// Endpoint para deletar o tipo do evento
+        /// Endpoint para deletar a presença
         /// </summary>
         [Authorize]
         [HttpDelete("{id}")]
@@ -81,7 +26,7 @@ namespace EventPlus_.Controller
         {
             try
             {
-                _tipoEventoRepository.Deletar(id);
+                _presencaRepository.Deletar(id);
                 return NoContent();
             }
             catch (Exception error)
@@ -91,16 +36,67 @@ namespace EventPlus_.Controller
         }
 
         /// <summary>
-        /// Endpoint para buscar tipo do evento por Id
+        /// Endpoint para buscar por Id a presença
+        /// </summary>
+        [HttpGet("BuscarPorId/{id}")]
+        public IActionResult GetById(Guid id)
+        {
+            try
+            {
+                Presenca novaPresenca = _presencaRepository.BuscarPorId(id);
+                return Ok(novaPresenca);
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+
+        /// <summary>
+        /// Endpoint para atualizar as presenças
         /// </summary>
         [Authorize]
-        [HttpGet("BuscarPorId/{id}")]
+        [HttpPut("{id}")]
+        public IActionResult Put(Guid id, Presenca presenca)
+        {
+            try
+            {
+                _presencaRepository.Atualizar(id, presenca);
+                return NoContent();
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+
+        /// <summary>
+        /// Endpoint para fazer uma lista das presenças
+        /// </summary>
+        [HttpGet("ListarPresencas")]
+        public IActionResult Get()
+        {
+            try
+            {
+                List<Presenca> listaPresencas = _presencaRepository.Listar();
+                return Ok(listaPresencas);
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+
+        /// <summary>
+        /// Endpoint para fazer uma lista das minhas presenças
+        /// </summary>
+        [HttpGet("ListarMinhasPresencas/{id}")]
         public IActionResult Get(Guid id)
         {
             try
             {
-                TipoEvento buscaTipoEvento = _tipoEventoRepository.BuscarPorId(id);
-                return Ok(buscaTipoEvento);
+                List<Presenca> listaMinhasPresencas = _presencaRepository.ListarMinhasPresencas(id);
+                return Ok(listaMinhasPresencas);
             }
             catch (Exception error)
             {
