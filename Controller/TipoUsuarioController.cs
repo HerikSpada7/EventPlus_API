@@ -22,7 +22,6 @@ namespace EventPlus_.Controller
         /// <summary>
         /// Endpoint para cadastrar um tipo de usuario
         /// </summary>
-        [Authorize]
         [HttpPost]
         public IActionResult Post(TipoUsuario novoTipoUsuario)
         {

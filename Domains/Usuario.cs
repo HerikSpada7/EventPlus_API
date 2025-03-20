@@ -32,7 +32,7 @@ namespace EventPlus_.Domains
         public Guid TipoUsuarioID { get; set; }
 
         [ForeignKey("TipoUsuarioID")]
-        public TipoUsuario? TipoUsuarios{ get; set; }
+        public TipoUsuario? TipoUsuarios { get; set; }
 
     }
 }

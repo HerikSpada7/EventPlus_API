@@ -21,7 +21,7 @@ namespace EventPlus_.Controller
         /// <summary>
         /// Endpoint para cadastrar novo usuario
         /// </summary>
-        [Authorize]
+        
         [HttpPost]
         public IActionResult Post(Usuario novoUsuario)
         {

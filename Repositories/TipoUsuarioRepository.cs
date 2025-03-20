@@ -25,7 +25,7 @@ namespace EventPlus_.Repositories
                     tipoUsuarioBuscado.TituloTipoUsuario = tipoUsuario.TituloTipoUsuario;
                     tipoUsuarioBuscado.TipoUsuarioID = tipoUsuario.TipoUsuarioID;
                 }
-                
+
                 _context.SaveChanges();
 
             }
@@ -37,22 +37,60 @@ namespace EventPlus_.Repositories
 
         public TipoUsuario BuscarPorId(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                TipoUsuario tipoUsuarioBuscado = _context.TipoUsuario.Find(id)!;
+                return tipoUsuarioBuscado;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public void Cadastrar(TipoUsuario tipoUsuario)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.TipoUsuario.Add(tipoUsuario);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public void Deletar(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                TipoUsuario tipoUsuarioBuscado = _context.TipoUsuario.Find(id)!;
+
+                if (tipoUsuarioBuscado != null)
+                {
+                    _context.TipoUsuario.Remove(tipoUsuarioBuscado);
+                }
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
         public List<TipoUsuario> Listar()
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<TipoUsuario> listaTipoUsuario = _context.TipoUsuario.ToList();
+                return listaTipoUsuario;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }
