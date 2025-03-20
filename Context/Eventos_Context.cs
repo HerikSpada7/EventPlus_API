@@ -1,4 +1,5 @@
 ﻿using EventPlus_.Domains;
+using EventPlus_.Domains.StringLenght;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventPlus_.Context

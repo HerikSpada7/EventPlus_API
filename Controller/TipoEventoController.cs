@@ -56,7 +56,7 @@ namespace EventPlus_.Controller
         /// <summary>
         /// Endpoint para atualizar o tipo do evento
         /// </summary>
-        [HttpPost("{id}")]
+        [HttpPut("{id}")]
         public IActionResult Put(Guid id, TipoEvento tipoEvento)
         {
             try
